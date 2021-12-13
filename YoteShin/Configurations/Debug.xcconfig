@@ -1,0 +1,11 @@
+//
+//  Debug.xcconfig
+//  YoteShin
+//
+//  Created by Aung Chan Nyein on 11/17/21.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BASEURL = https:$()script.google.com/macros/s/AKfycbxU9eeTXB6VbCACrPN-kTXdFuo4RyY2zomqFMt9IsFOVDi_HUuiErZeAYuRvjDWCQ14Ag
