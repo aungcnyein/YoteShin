@@ -25,8 +25,12 @@ extension ContentListingPresenter: ContentListingPresenterInteractorInterface {
         view.onFetchingGridContentSuccess(gridContent: gridContent.data)
     }
     
-    func onFetchingGridContentFailed(title: String, message: String) {
-        view.onFetchingGridContentFailed(title: title, message: message)
+    func onFetchingRelatedContentSuccess(relatedContent: RelatedContentController.RelatedContentResponse) {
+        view.onFetchingRelatedContentSuccess(relatedContent: relatedContent.data)
+    }
+    
+    func onFetchingDataFailed(title: String, message: String) {
+        view.onFetchingDataFailed(title: title, message: message)
     }
     
 }
@@ -35,6 +39,10 @@ extension ContentListingPresenter: ContentListingPresenterViewInterface {
     
     func getGridContentBy(categoryKey: String, page: Int) {
         interactor.fetchGridContentBy(categoryKey: categoryKey, page: page)
+    }
+    
+    func getRelatedContentBy(contentID: String) {
+        interactor.fetchRelatedContentBy(contentID: contentID)
     }
 
 }

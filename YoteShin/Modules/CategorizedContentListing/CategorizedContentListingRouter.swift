@@ -18,7 +18,14 @@ final class CategorizedContentListingRouter: RouterInterface {
 extension CategorizedContentListingRouter: CategorizedContentListingRouterPresenterInterface {
 
     func goToContentListingView(contentList: MovieContentController.MovieContents) {
-        let view = ContentListingModule().build(category: nil, movieContent: contentList, type: .list)
+        let categorizedContent = CategorizedContent(movieContent: contentList)
+        let view = ContentListingModule().build(categorizedContent: categorizedContent, type: .list)
+        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
+    func goToContentDetailView(content: Content) {
+        let type = (content.movieURL == "") ? ContentType.episode : ContentType.movie
+        let view = ContentDetailModule().build(content: content, type: type)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     

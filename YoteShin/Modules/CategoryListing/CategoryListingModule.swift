@@ -53,7 +53,7 @@ final class CategoryListingModule: ModuleInterface {
 
     func build(category: [CategoryController.Categories]) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let view = storyboard.instantiateViewController(withIdentifier: "CategoryListingView") as! View
+        let view = storyboard.instantiateViewController(withIdentifier: View.identifier) as! View
         let interactor = Interactor()
         let presenter = Presenter()
         let router = Router()

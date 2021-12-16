@@ -11,6 +11,7 @@ import UIKit
 
 protocol CategorizedContentListingRouterPresenterInterface: RouterPresenterInterface {
     func goToContentListingView(contentList: MovieContentController.MovieContents)
+    func goToContentDetailView(content: Content)
 }
 
 // MARK: - presenter
@@ -27,6 +28,7 @@ protocol CategorizedContentListingPresenterInteractorInterface: PresenterInterac
 protocol CategorizedContentListingPresenterViewInterface: PresenterViewInterface {
     func getContentBy(categoryKey: String)
     func pushToContentListingView(contentList: MovieContentController.MovieContents)
+    func pushToContentDetailView(content: Content)
 }
 
 // MARK: - interactor
@@ -54,7 +56,7 @@ final class CategorizedContentListingModule: ModuleInterface {
 
     func build(category: CategoryController.Categories, parentView: UIView? = nil) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let view = storyboard.instantiateViewController(withIdentifier: "CategorizedContentListingView") as! View
+        let view = storyboard.instantiateViewController(withIdentifier: View.identifier) as! View
         let interactor = Interactor()
         let presenter = Presenter()
         let router = Router()

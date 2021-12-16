@@ -12,5 +12,7 @@ class API {
     typealias category = CategoryController
     typealias movie = MovieContentController
     typealias gridContent = GridContentController
+    typealias relatedContent = RelatedContentController
+    typealias episodeContent = EpisodeContentController
     
 }

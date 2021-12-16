@@ -72,4 +72,8 @@ extension CategorizedCell: UICollectionViewDataSource, UICollectionViewDelegate,
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        listener.routeToContentDetailView(content: contentList.content[indexPath.row])
+    }
+    
 }

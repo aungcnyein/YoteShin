@@ -16,6 +16,7 @@ final class CategorizedContentListingView: UIViewController, ViewInterface {
     
     var presenter: CategorizedContentListingPresenterViewInterface!
     var parentView: UIView?
+    static let identifier = "CategorizedContentListingView"
     private var loadingView = UIView()
     
     var category: CategoryController.Categories! {
@@ -43,10 +44,9 @@ final class CategorizedContentListingView: UIViewController, ViewInterface {
     // MARK: Objc Methods
     
     @objc private func didTapSegmentedControl(notification: Notification) {
-        let category = notification.object as! CategoryController.Categories
+        self.category = notification.object as? CategoryController.Categories
         self.content = []
         self.loadingView = self.showLoadingView(at: self.parentView ?? self.view)
-        presenter.getContentBy(categoryKey: category.key)
     }
     
     // MARK: Custom Methods
@@ -109,6 +109,10 @@ extension CategorizedContentListingView: CategorizedCellInterface {
         presenter.pushToContentListingView(contentList: contentList)
     }
     
+    func routeToContentDetailView(content: Content) {
+        presenter.pushToContentDetailView(content: content)
+    }
+    
 }
 
 // MARK: Table View
@@ -123,10 +127,6 @@ extension CategorizedContentListingView: UITableViewDataSource, UITableViewDeleg
         let cell = tableView.dequeueReusableCell(withIdentifier: CategorizedCell.identifier, for: indexPath) as! CategorizedCell
         cell.data(contentList: content[indexPath.row], listener: self)
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selected item -> \(indexPath.row)")
     }
     
 }

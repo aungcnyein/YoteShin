@@ -10,11 +10,13 @@ import Foundation
 enum ContentListingType: String, CaseIterable, CustomStringConvertible {
     case list // It means movie content
     case grid // It means grid content
+    case contentDetail
     
     var description: String {
         switch self {
         case .list: return "list"
         case .grid: return "grid"
+        case .contentDetail: return "content_detail"
         }
     }
     

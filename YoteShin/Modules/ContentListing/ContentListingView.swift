@@ -15,22 +15,30 @@ final class ContentListingView: UIViewController, ViewInterface {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var presenter: ContentListingPresenterViewInterface!
-    var type: ContentListingType!
-    var movieContent: MovieContentController.MovieContents!
+    var categorizedContent: CategorizedContent!
+    var category: CategoryController.Categories! // grid content
+    var movieContent: MovieContentController.MovieContents! // list content
+    var content: Content! // content detail
+    static let identifier = "ContentListingView"
     private var loadingView = UIView()
     private var isLoadingMoreData: Bool = false
     private var shouldShowFooterView: Bool = false
     private var isLastPage: Bool = false
     private var currentPage: Int = 1
     
-    var category: CategoryController.Categories! {
+    var type: ContentListingType! {
         didSet {
-            loadingView = showLoadingView(at: self.view)
-            presenter.getGridContentBy(categoryKey: category.key, page: currentPage)
+            self.renderContent(for: self.type)
         }
     }
     
     private var gridContent: [Content] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
+    private var relatedContent: [Content] = [] {
         didSet {
             collectionView.reloadData()
         }
@@ -41,33 +49,36 @@ final class ContentListingView: UIViewController, ViewInterface {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI()
-        registerCollectionReusableCell()
-        registerCollectionReusableView()
+        registerReusableCollectionCell()
+        registerReusableCollectionView()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
+        if (type == .contentDetail), let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+        }
+        
+        if (type == .contentDetail) {
+            preferredContentSize.height = 210
+            collectionView.layoutIfNeeded()
+        }
+        
         if (type == .grid) && shouldShowFooterView {
             collectionView.collectionViewLayout.invalidateLayout()
         }
-        
     }
     
     // MARK: Custom Methods
     
-    private func configureUI() {
-        self.title = (type == .list) ? movieContent.title : category.title
-    }
-    
-    private func registerCollectionReusableCell() {
+    private func registerReusableCollectionCell() {
         collectionView.register(UINib(nibName: MovieCell.identifier, bundle: nil), forCellWithReuseIdentifier: MovieCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
     }
     
-    private func registerCollectionReusableView() {
+    private func registerReusableCollectionView() {
         collectionView.register(CollectionFooterReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: CollectionFooterReusableView.identifier)
     }
     
@@ -84,10 +95,21 @@ final class ContentListingView: UIViewController, ViewInterface {
             title: "Try Again",
             style: .default,
             handler: { _ in
-                if self.currentPage == 1 {
-                    self.loadingView = self.showLoadingView(at: self.view)
+                if (self.type == .grid) {
+                    if self.currentPage == 1 {
+                        self.loadingView = self.showLoadingView(at: self.view)
+                    }
+                    
+                    self.presenter.getGridContentBy(categoryKey: self.category.key, page: self.currentPage)
                 }
-                self.presenter.getGridContentBy(categoryKey: self.category.key, page: self.currentPage)
+                
+                if (self.type == .contentDetail) {
+                    DispatchQueue.main.async {
+                        self.loadingView = self.showLoadingView(at: self.view)
+                    }
+                    
+                    self.presenter.getRelatedContentBy(contentID: self.content.movieID)
+                }
             }
         ))
         
@@ -98,6 +120,31 @@ final class ContentListingView: UIViewController, ViewInterface {
         if isLoadingMoreData {
             currentPage += 1
             presenter.getGridContentBy(categoryKey: category.key, page: currentPage)
+        }
+    }
+    
+    private func renderContent(for type: ContentListingType) {
+        switch type {
+        case .list:
+            self.movieContent = categorizedContent.movieContent
+            self.title = movieContent.title
+            break
+            
+        case .grid:
+            self.category = categorizedContent.category
+            self.title = category.title
+            loadingView = showLoadingView(at: self.view)
+            presenter.getGridContentBy(categoryKey: category.key, page: currentPage)
+            break
+            
+        case .contentDetail:
+            self.content = categorizedContent.content
+            
+            DispatchQueue.main.async {
+                self.loadingView = self.showLoadingView(at: self.view)
+            }
+            
+            presenter.getRelatedContentBy(contentID: content.movieID)
         }
     }
 
@@ -115,7 +162,12 @@ extension ContentListingView: ContentListingViewPresenterInterface {
         }
     }
     
-    func onFetchingGridContentFailed(title: String, message: String) {
+    func onFetchingRelatedContentSuccess(relatedContent: RelatedContentController.RelatedContents) {
+        hideLoadingView(at: loadingView)
+        self.relatedContent = relatedContent.content
+    }
+    
+    func onFetchingDataFailed(title: String, message: String) {
         hideLoadingView(at: loadingView)
         showAlert(title: title, message: message)
     }
@@ -127,15 +179,57 @@ extension ContentListingView: ContentListingViewPresenterInterface {
 extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (type == .list) ? movieContent.content.count : gridContent.count
+        switch type {
+        case .list:
+            return movieContent.content.count
+
+        case .grid:
+            return gridContent.count
+
+        case .contentDetail:
+            return relatedContent.count
+
+        case .none:
+            fatalError("Can't determine of content listing type")
+            break
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
         
-        (type == .list) ? cell.data(content: movieContent.content[indexPath.row]) : cell.data(content: gridContent[indexPath.row])
+        switch type {
+        case .list:
+            cell.data(content: movieContent.content[indexPath.row])
+            return cell
+            
+        case .grid:
+            cell.data(content: gridContent[indexPath.row])
+            return cell
+            
+        case .contentDetail:
+            cell.data(content: relatedContent[indexPath.row])
+            return cell
+            
+        case .none:
+            fatalError("Can't determine of content listing type")
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: CGFloat(110), height: CGFloat(170))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
-        return cell
+        if (type == .grid) && (indexPath.row == gridContent.count - 1) && !isLoadingMoreData && !isLastPage {
+            isLoadingMoreData = true
+            shouldShowFooterView = true
+            viewDidLayoutSubviews()
+            loadMoreData()
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -153,15 +247,8 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize.zero
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        if (type == .grid) && (indexPath.row == gridContent.count - 1) && !isLoadingMoreData && !isLastPage {
-            isLoadingMoreData = true
-            shouldShowFooterView = true
-            viewDidLayoutSubviews()
-            loadMoreData()
-        }
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: Route to content detail view
     }
     
 }

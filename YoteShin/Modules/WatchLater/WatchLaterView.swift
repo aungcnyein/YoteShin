@@ -13,6 +13,7 @@ final class WatchLaterView: UIViewController, ViewInterface {
     // MARK: Properties
     
     var presenter: WatchLaterPresenterViewInterface!
+    static let identifier = "WatchLaterView"
 
     // MARK: Init
     

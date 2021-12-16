@@ -15,6 +15,7 @@ final class CategoryListingView: UIViewController, ViewInterface {
     @IBOutlet weak var tableView: UITableView!
     
     var presenter: CategoryListingPresenterViewInterface!
+    static let identifier = "CategoryListingView"
     private let categoryListingCellReuseIdentifier = "CategoryListingCell"
     
     var category: [CategoryController.Categories]!

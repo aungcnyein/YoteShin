@@ -41,4 +41,8 @@ extension CategorizedContentListingPresenter: CategorizedContentListingPresenter
         router.goToContentListingView(contentList: contentList)
     }
     
+    func pushToContentDetailView(content: Content) {
+        router.goToContentDetailView(content: content)
+    }
+    
 }

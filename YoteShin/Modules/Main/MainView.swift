@@ -15,6 +15,7 @@ final class MainView: UIViewController, ViewInterface {
     @IBOutlet weak var containerView: UIView!
     
     var presenter: MainPresenterViewInterface!
+    static let identifier = "MainView"
     private var segmentedControl: UISegmentedControl!
     private var segmentedItems: [String] = []
     private var loadingView = UIView()
@@ -67,7 +68,7 @@ final class MainView: UIViewController, ViewInterface {
     }
     
     private func setupSegmentedControl() {
-        segmentedControl = NoSwipeSegmentedControl(items: segmentedItems)
+        segmentedControl = UISegmentedControl(items: segmentedItems)
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         // segmentedControl.apportionsSegmentWidthsByContent = true

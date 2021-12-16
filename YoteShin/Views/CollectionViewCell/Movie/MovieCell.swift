@@ -29,4 +29,8 @@ class MovieCell: UICollectionViewCell {
         posterImage.sd_setImage(with: URL(string: content.moviePoster), placeholderImage: UIImage(named: "img_placeholder"))
     }
     
+    func data(episodeContent: EpisodeContent) {
+        posterImage.sd_setImage(with: URL(string: episodeContent.episodeCover), placeholderImage: UIImage(named: "img_placeholder"))
+    }
+    
 }

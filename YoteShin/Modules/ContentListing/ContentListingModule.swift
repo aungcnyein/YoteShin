@@ -21,24 +21,28 @@ protocol ContentListingPresenterRouterInterface: PresenterRouterInterface {
 
 protocol ContentListingPresenterInteractorInterface: PresenterInteractorInterface {
     func onFetchingGridContentSuccess(gridContent: GridContentController.GridContentResponse)
-    func onFetchingGridContentFailed(title: String, message: String)
+    func onFetchingRelatedContentSuccess(relatedContent: RelatedContentController.RelatedContentResponse)
+    func onFetchingDataFailed(title: String, message: String)
 }
 
 protocol ContentListingPresenterViewInterface: PresenterViewInterface {
     func getGridContentBy(categoryKey: String, page: Int)
+    func getRelatedContentBy(contentID: String)
 }
 
 // MARK: - interactor
 
 protocol ContentListingInteractorPresenterInterface: InteractorPresenterInterface {
     func fetchGridContentBy(categoryKey: String, page: Int)
+    func fetchRelatedContentBy(contentID: String)
 }
 
 // MARK: - view
 
 protocol ContentListingViewPresenterInterface: ViewPresenterInterface {
     func onFetchingGridContentSuccess(gridContent: [Content])
-    func onFetchingGridContentFailed(title: String, message: String)
+    func onFetchingRelatedContentSuccess(relatedContent: RelatedContentController.RelatedContents)
+    func onFetchingDataFailed(title: String, message: String)
 }
 
 
@@ -51,9 +55,9 @@ final class ContentListingModule: ModuleInterface {
     typealias Router = ContentListingRouter
     typealias Interactor = ContentListingInteractor
 
-    func build(category: CategoryController.Categories?, movieContent: MovieContentController.MovieContents?, type: ContentListingType) -> UIViewController {
+    func build(categorizedContent: CategorizedContent, type: ContentListingType) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let view = storyboard.instantiateViewController(withIdentifier: "ContentListingView") as! View
+        let view = storyboard.instantiateViewController(withIdentifier: View.identifier) as! View
         let interactor = Interactor()
         let presenter = Presenter()
         let router = Router()
@@ -62,9 +66,8 @@ final class ContentListingModule: ModuleInterface {
 
         router.viewController = view
         
+        view.categorizedContent = categorizedContent
         view.type = type
-        
-        (type == .list) ? (view.movieContent = movieContent) : (view.category = category)
 
         return view
     }

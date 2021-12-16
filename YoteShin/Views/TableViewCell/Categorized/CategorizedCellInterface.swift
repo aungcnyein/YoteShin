@@ -9,4 +9,5 @@ import Foundation
 
 protocol CategorizedCellInterface {
     func routeToContentListingView(contentList: MovieContentController.MovieContents)
+    func routeToContentDetailView(content: Content)
 }

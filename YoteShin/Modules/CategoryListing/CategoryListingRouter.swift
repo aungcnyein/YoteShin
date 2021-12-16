@@ -23,7 +23,8 @@ extension CategoryListingRouter: CategoryListingRouterPresenterInterface {
     }
     
     func goToContentListingView(category: CategoryController.Categories) {
-        let view = ContentListingModule().build(category: category, movieContent: nil, type: .grid)
+        let categorizedContent = CategorizedContent(category: category)
+        let view = ContentListingModule().build(categorizedContent: categorizedContent, type: .grid)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     
