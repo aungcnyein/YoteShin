@@ -111,6 +111,8 @@ final class EpisodeContentListingView: UIViewController, ViewInterface {
 extension EpisodeContentListingView: EpisodeContentListingViewPresenterInterface {
 
     func onFetchingEpisodeContentSuccess(episodeContent: [EpisodeContent]) {
+        NotificationCenter.default.post(name: Notification.Name(Notification.Noti.episodeContentReady), object: episodeContent[0])
+        
         hideLoadingView(at: loadingView)
         self.episodeContent.append(contentsOf: episodeContent)
         self.isLoadingMoreData = false
@@ -172,7 +174,7 @@ extension EpisodeContentListingView: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: Route to content detail view
+        NotificationCenter.default.post(name: Notification.Name(Notification.Noti.refreshEpisodeContent), object: episodeContent[indexPath.row])
     }
     
 }

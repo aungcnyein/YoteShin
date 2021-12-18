@@ -16,9 +16,9 @@ final class ContentListingView: UIViewController, ViewInterface {
     
     var presenter: ContentListingPresenterViewInterface!
     var categorizedContent: CategorizedContent!
-    var category: CategoryController.Categories! // grid content
-    var movieContent: MovieContentController.MovieContents! // list content
-    var content: Content! // content detail
+    var category: CategoryController.Categories! // use to fetch grid content
+    var movieContent: MovieContentController.MovieContents! // use to fetch list content
+    var content: Content! // use to fetch content detail
     static let identifier = "ContentListingView"
     private var loadingView = UIView()
     private var isLoadingMoreData: Bool = false
@@ -147,6 +147,24 @@ final class ContentListingView: UIViewController, ViewInterface {
             presenter.getRelatedContentBy(contentID: content.movieID)
         }
     }
+    
+    private func showNoRelatedContentLabel() {
+        let textLabel = UILabel.init(frame: .zero)
+        textLabel.text = "There is no related content"
+        textLabel.textAlignment = .center
+        textLabel.textColor = .gray
+        textLabel.font = UIFont.systemFont(ofSize: 12)
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        DispatchQueue.main.async {
+            self.view.addSubview(textLabel)
+            
+            NSLayoutConstraint.activate([
+                textLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+                textLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            ])
+        }
+    }
 
 }
 
@@ -165,6 +183,10 @@ extension ContentListingView: ContentListingViewPresenterInterface {
     func onFetchingRelatedContentSuccess(relatedContent: RelatedContentController.RelatedContents) {
         hideLoadingView(at: loadingView)
         self.relatedContent = relatedContent.content
+        
+        if (content.movieContentType == "clips") && relatedContent.content.isEmpty {
+            showNoRelatedContentLabel()
+        }
     }
     
     func onFetchingDataFailed(title: String, message: String) {
@@ -190,7 +212,7 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
             return relatedContent.count
 
         case .none:
-            fatalError("Can't determine of content listing type")
+            fatalError()
             break
         }
     }
@@ -212,7 +234,7 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
             return cell
             
         case .none:
-            fatalError("Can't determine of content listing type")
+            fatalError()
             break
         }
     }
@@ -248,7 +270,33 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: Route to content detail view
+        var view = UIViewController()
+        
+        switch type {
+        case .list:
+            print("-- list content -> \(movieContent.content[indexPath.row])")
+            let type = (movieContent.content[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
+            view = ContentDetailModule().build(content: movieContent.content[indexPath.row], type: type)
+            break
+            
+        case .grid:
+            print("-- grid content -> \(gridContent[indexPath.row].movieURL)")
+            let type = (gridContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
+            view = ContentDetailModule().build(content: gridContent[indexPath.row], type: type)
+            break
+            
+        case .contentDetail:
+            print("-- content detail -> \(relatedContent[indexPath.row])")
+            let type = (relatedContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
+            view = ContentDetailModule().build(content: relatedContent[indexPath.row], type: type)
+            break
+            
+        case .none:
+            fatalError()
+            break
+        }
+        
+        navigationController?.pushViewController(view, animated: true)
     }
     
 }

@@ -14,5 +14,6 @@ class API {
     typealias gridContent = GridContentController
     typealias relatedContent = RelatedContentController
     typealias episodeContent = EpisodeContentController
+    typealias playlistContent = PlaylistContentController
     
 }

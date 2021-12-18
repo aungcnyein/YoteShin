@@ -24,8 +24,13 @@ final class ContentDetailView: UIViewController, ViewInterface {
     var presenter: ContentDetailPresenterViewInterface!
     var content: Content!
     var type: ContentType!
-    
     static let identifier = "ContentDetailView"
+    
+    var episodeContent: EpisodeContent! {
+        didSet {
+            assignContentForEpisode()
+        }
+    }
 
     // MARK: Init
     
@@ -33,6 +38,8 @@ final class ContentDetailView: UIViewController, ViewInterface {
         super.viewDidLoad()
         
         configureUI()
+        assignContentForMovie()
+        registerNotificationCenter()
         configureSegmentedControl(type: self.type)
     }
     
@@ -69,12 +76,15 @@ final class ContentDetailView: UIViewController, ViewInterface {
     }
     
     @IBAction func didTapButton(_ sender: UIButton) {
-        sender.alpha = 0.5
+//        sender.alpha = 0.5
         
         switch sender.tag {
         case 0: // TODO: Go to play content
-            
-            break
+            if type == .movie {
+                print("-- Play -> \(content.movieTitle), \(content.movieURL)")
+            } else {
+                print("-- Play -> \(episodeContent.episodeTitle), \(episodeContent.episodeURL)")
+            }
             
         case 1: // TODO: Go to download content
             
@@ -98,14 +108,56 @@ final class ContentDetailView: UIViewController, ViewInterface {
         sender.alpha = 0.5
     }
     
+    // MARK: Objc Methods
+    
+    @objc private func refreshEpisodeContent(notification: Notification) {
+        if type == .episode {
+            self.episodeContent = notification.object as? EpisodeContent
+        }
+    }
+    
+    @objc private func episodeContentReady(notification: Notification) {
+        print("-- Episode content ready")
+        self.episodeContent = notification.object as? EpisodeContent
+    }
+    
     // MARK: Custom Methods
     
     private func configureUI() {
         playButton.layer.cornerRadius = 10
         downloadButton.layer.cornerRadius = 10
         
+        if type == .episode {
+            DispatchQueue.main.async {
+                self.titleText.text = "Loading..."
+                self.imageView.image = UIImage(named: "img_placeholder")
+                self.configureButton(shouldEnable: false)
+            }
+        }
+    }
+    
+    private func configureButton(shouldEnable: Bool) {
+        if type == .episode {
+            playButton.isUserInteractionEnabled = shouldEnable
+            downloadButton.isUserInteractionEnabled = shouldEnable
+        }
+    }
+    
+    private func registerNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(episodeContentReady(notification:)), name: Notification.Name(Notification.Noti.episodeContentReady), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshEpisodeContent(notification:)), name: Notification.Name(Notification.Noti.refreshEpisodeContent), object: nil)
+    }
+    
+    private func assignContentForMovie() {
         titleText.text = content.movieTitle
         imageView.sd_setImage(with: URL(string: content.movieCover), placeholderImage: UIImage(named: "img_placeholder"))
+    }
+    
+    private func assignContentForEpisode() {
+        configureButton(shouldEnable: true)
+        titleText.text = "\(content.movieTitle) - \(episodeContent.episodeTitle)"
+        imageView.sd_setImage(with: URL(string: episodeContent.episodeCover), placeholderImage: UIImage(named: "img_placeholder"))
     }
     
     private func configureSegmentedControl(type: ContentType) {

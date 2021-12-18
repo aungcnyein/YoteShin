@@ -82,6 +82,8 @@
 		39AA02C4276B8E6D0070D876 /* ContentDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AA02BF276B8E6C0070D876 /* ContentDescriptionView.swift */; };
 		39AA02C5276B8E6D0070D876 /* ContentDescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AA02C0276B8E6C0070D876 /* ContentDescriptionPresenter.swift */; };
 		39AA02C7276B93810070D876 /* ContentDescriptionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AA02C6276B93810070D876 /* ContentDescriptionSection.swift */; };
+		39C732A0276E35C80056ACF1 /* PlaylistContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C7329F276E35C70056ACF1 /* PlaylistContentController.swift */; };
+		39C732A2276E35EF0056ACF1 /* PlaylistContent+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A1276E35EF0056ACF1 /* PlaylistContent+Post.swift */; };
 		39E008702769B8080089CC25 /* EpisodeContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0086F2769B8080089CC25 /* EpisodeContentController.swift */; };
 		39E008722769B8180089CC25 /* EpisodeContent+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008712769B8180089CC25 /* EpisodeContent+Post.swift */; };
 		39E008742769BB950089CC25 /* EpisodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008732769BB950089CC25 /* EpisodeContent.swift */; };
@@ -167,6 +169,8 @@
 		39AA02BF276B8E6C0070D876 /* ContentDescriptionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentDescriptionView.swift; sourceTree = "<group>"; };
 		39AA02C0276B8E6C0070D876 /* ContentDescriptionPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentDescriptionPresenter.swift; sourceTree = "<group>"; };
 		39AA02C6276B93810070D876 /* ContentDescriptionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDescriptionSection.swift; sourceTree = "<group>"; };
+		39C7329F276E35C70056ACF1 /* PlaylistContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistContentController.swift; sourceTree = "<group>"; };
+		39C732A1276E35EF0056ACF1 /* PlaylistContent+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistContent+Post.swift"; sourceTree = "<group>"; };
 		39E0086F2769B8080089CC25 /* EpisodeContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeContentController.swift; sourceTree = "<group>"; };
 		39E008712769B8180089CC25 /* EpisodeContent+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeContent+Post.swift"; sourceTree = "<group>"; };
 		39E008732769BB950089CC25 /* EpisodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeContent.swift; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 		390ACD972744E73D00E83B09 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				39C7329E276E35980056ACF1 /* PlaylistContent */,
 				39E0086E2769B7F50089CC25 /* EpisodeContent */,
 				3940C118276886CC00162EDC /* RelatedContent */,
 				398CD5492764FF400068CFF6 /* GridContent */,
@@ -482,6 +487,15 @@
 			path = ContentDescription;
 			sourceTree = "<group>";
 		};
+		39C7329E276E35980056ACF1 /* PlaylistContent */ = {
+			isa = PBXGroup;
+			children = (
+				39C7329F276E35C70056ACF1 /* PlaylistContentController.swift */,
+				39C732A1276E35EF0056ACF1 /* PlaylistContent+Post.swift */,
+			);
+			path = PlaylistContent;
+			sourceTree = "<group>";
+		};
 		39E0086E2769B7F50089CC25 /* EpisodeContent */ = {
 			isa = PBXGroup;
 			children = (
@@ -630,9 +644,11 @@
 				39AA02C7276B93810070D876 /* ContentDescriptionSection.swift in Sources */,
 				39000150276B20E00094116C /* EpisodeContentListingPresenter.swift in Sources */,
 				39E008762769C0E00089CC25 /* ContentType.swift in Sources */,
+				39C732A2276E35EF0056ACF1 /* PlaylistContent+Post.swift in Sources */,
 				39AA02C4276B8E6D0070D876 /* ContentDescriptionView.swift in Sources */,
 				390ACD8C2744E1E500E83B09 /* MainInteractor.swift in Sources */,
 				398460272763C17B008D5692 /* WatchLaterModule.swift in Sources */,
+				39C732A0276E35C80056ACF1 /* PlaylistContentController.swift in Sources */,
 				3900014C276B20E00094116C /* EpisodeContentListingRouter.swift in Sources */,
 				390ED710276767D500F12180 /* ContentDetailModule.swift in Sources */,
 				399A78C427634DB50067A54B /* Content.swift in Sources */,

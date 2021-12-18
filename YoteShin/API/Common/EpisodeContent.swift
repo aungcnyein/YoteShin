@@ -27,7 +27,7 @@ struct EpisodeContent: Codable {
         episodeTitle = try container.decode(String.self, forKey: .episodeTitle)
         episodeDescription = try container.decode(String.self, forKey: .episodeDescription)
         episodeCover = try container.decode(String.self, forKey: .episodeCover)
-        episodeURL = try container.decode(String.self, forKey: .episodeTitle)
+        episodeURL = try container.decode(String.self, forKey: .episodeURL)
         episodeSubtitle = try container.decode([Subtitle].self, forKey: .episodeSubtitle)
         
         do {

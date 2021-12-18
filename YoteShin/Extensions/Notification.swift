@@ -11,6 +11,8 @@ extension Notification {
     
     enum Noti {
         static let didTapSegmentedControl: String = "didTapSegmentedControl"
+        static let refreshEpisodeContent: String = "refreshEpisodeContent"
+        static let episodeContentReady: String = "episodeContentReady"
     }
     
 }

@@ -27,7 +27,7 @@
                                 <rect key="frame" x="150" y="140" width="80" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Episode 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCe-9z-lZA">
-                                        <rect key="frame" x="11" y="7" width="58" height="16"/>
+                                        <rect key="frame" x="10" y="7" width="60" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -35,10 +35,12 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="BCe-9z-lZA" secondAttribute="bottom" constant="7" id="Aaj-dj-QSh"/>
                                     <constraint firstAttribute="height" constant="30" id="BjX-nJ-7IZ"/>
-                                    <constraint firstItem="BCe-9z-lZA" firstAttribute="centerX" secondItem="VNx-Iu-1mn" secondAttribute="centerX" id="EVH-NO-ZGw"/>
-                                    <constraint firstItem="BCe-9z-lZA" firstAttribute="centerY" secondItem="VNx-Iu-1mn" secondAttribute="centerY" id="XG0-tF-4fn"/>
+                                    <constraint firstItem="BCe-9z-lZA" firstAttribute="top" secondItem="VNx-Iu-1mn" secondAttribute="top" constant="7" id="LjT-cJ-Mm8"/>
+                                    <constraint firstAttribute="trailing" secondItem="BCe-9z-lZA" secondAttribute="trailing" constant="10" id="jAL-HE-EBp"/>
                                     <constraint firstAttribute="width" constant="80" id="oiG-Bm-Bme"/>
+                                    <constraint firstItem="BCe-9z-lZA" firstAttribute="leading" secondItem="VNx-Iu-1mn" secondAttribute="leading" constant="10" id="p9e-eM-689"/>
                                 </constraints>
                             </view>
                         </subviews>
