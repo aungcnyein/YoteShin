@@ -274,19 +274,16 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
         
         switch type {
         case .list:
-            print("-- list content -> \(movieContent.content[indexPath.row])")
             let type = (movieContent.content[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
             view = ContentDetailModule().build(content: movieContent.content[indexPath.row], type: type)
             break
             
         case .grid:
-            print("-- grid content -> \(gridContent[indexPath.row].movieURL)")
             let type = (gridContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
             view = ContentDetailModule().build(content: gridContent[indexPath.row], type: type)
             break
             
         case .contentDetail:
-            print("-- content detail -> \(relatedContent[indexPath.row])")
             let type = (relatedContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
             view = ContentDetailModule().build(content: relatedContent[indexPath.row], type: type)
             break

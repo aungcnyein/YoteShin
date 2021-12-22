@@ -81,9 +81,11 @@ final class ContentDetailView: UIViewController, ViewInterface {
         switch sender.tag {
         case 0: // TODO: Go to play content
             if type == .movie {
-                print("-- Play -> \(content.movieTitle), \(content.movieURL)")
+                print("Play -> \(content.movieTitle), \(content.movieURL)")
+                presenter.pushToPlayerViewToPlay(for: content.movieURL)
             } else {
-                print("-- Play -> \(episodeContent.episodeTitle), \(episodeContent.episodeURL)")
+                print("Play -> \(episodeContent.episodeTitle), \(episodeContent.episodeURL)")
+                presenter.pushToPlayerViewToPlay(for: episodeContent.episodeURL)
             }
             
         case 1: // TODO: Go to download content
@@ -117,7 +119,6 @@ final class ContentDetailView: UIViewController, ViewInterface {
     }
     
     @objc private func episodeContentReady(notification: Notification) {
-        print("-- Episode content ready")
         self.episodeContent = notification.object as? EpisodeContent
     }
     

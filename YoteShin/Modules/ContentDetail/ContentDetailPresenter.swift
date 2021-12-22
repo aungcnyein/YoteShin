@@ -38,4 +38,8 @@ extension ContentDetailPresenter: ContentDetailPresenterViewInterface {
         router.addEpisodeContentListingView(at: containerView, with: content)
     }
     
+    func pushToPlayerViewToPlay(for url: String) {
+        router.goToPlayerViewToPlay(for: url)
+    }
+    
 }

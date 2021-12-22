@@ -43,4 +43,13 @@ extension ContentDetailRouter: ContentDetailRouterPresenterInterface {
         )
     }
     
+    func goToPlayerViewToPlay(for url: String) {
+        // TODO: Handle player
+        
+        YoteShinPlayer.play(for: url, at: viewController!)
+        
+//        let view = PlayerModule().build(playableURL: url)
+//        viewController?.navigationController?.pushViewController(view, animated: true)
+    }
+    
 }

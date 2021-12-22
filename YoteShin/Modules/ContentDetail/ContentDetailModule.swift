@@ -13,6 +13,7 @@ protocol ContentDetailRouterPresenterInterface: RouterPresenterInterface {
     func addContentListingView(at containerView: UIView, with content: Content)
     func addContentDescriptionView(at containerView: UIView, with content: Content)
     func addEpisodeContentListingView(at containerView: UIView, with content: Content)
+    func goToPlayerViewToPlay(for url: String)
 }
 
 // MARK: - presenter
@@ -29,6 +30,7 @@ protocol ContentDetailPresenterViewInterface: PresenterViewInterface {
     func embedContentListingView(at containerView: UIView, with content: Content)
     func embedContentDescriptionView(at containerView: UIView, with content: Content)
     func embedEpisodeContentListingView(at containerView: UIView, with content: Content)
+    func pushToPlayerViewToPlay(for url: String)
 }
 
 // MARK: - interactor

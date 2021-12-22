@@ -84,6 +84,12 @@
 		39AA02C7276B93810070D876 /* ContentDescriptionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AA02C6276B93810070D876 /* ContentDescriptionSection.swift */; };
 		39C732A0276E35C80056ACF1 /* PlaylistContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C7329F276E35C70056ACF1 /* PlaylistContentController.swift */; };
 		39C732A2276E35EF0056ACF1 /* PlaylistContent+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A1276E35EF0056ACF1 /* PlaylistContent+Post.swift */; };
+		39C732A4276E43D90056ACF1 /* YoteShinPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A3276E43D90056ACF1 /* YoteShinPlayer.swift */; };
+		39C732AB276E46710056ACF1 /* PlayerRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A6276E46710056ACF1 /* PlayerRouter.swift */; };
+		39C732AC276E46710056ACF1 /* PlayerPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A7276E46710056ACF1 /* PlayerPresenter.swift */; };
+		39C732AD276E46710056ACF1 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A8276E46710056ACF1 /* PlayerView.swift */; };
+		39C732AE276E46710056ACF1 /* PlayerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732A9276E46710056ACF1 /* PlayerModule.swift */; };
+		39C732AF276E46710056ACF1 /* PlayerInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C732AA276E46710056ACF1 /* PlayerInteractor.swift */; };
 		39E008702769B8080089CC25 /* EpisodeContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0086F2769B8080089CC25 /* EpisodeContentController.swift */; };
 		39E008722769B8180089CC25 /* EpisodeContent+Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008712769B8180089CC25 /* EpisodeContent+Post.swift */; };
 		39E008742769BB950089CC25 /* EpisodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008732769BB950089CC25 /* EpisodeContent.swift */; };
@@ -171,6 +177,12 @@
 		39AA02C6276B93810070D876 /* ContentDescriptionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDescriptionSection.swift; sourceTree = "<group>"; };
 		39C7329F276E35C70056ACF1 /* PlaylistContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistContentController.swift; sourceTree = "<group>"; };
 		39C732A1276E35EF0056ACF1 /* PlaylistContent+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlaylistContent+Post.swift"; sourceTree = "<group>"; };
+		39C732A3276E43D90056ACF1 /* YoteShinPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoteShinPlayer.swift; sourceTree = "<group>"; };
+		39C732A6276E46710056ACF1 /* PlayerRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerRouter.swift; sourceTree = "<group>"; };
+		39C732A7276E46710056ACF1 /* PlayerPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPresenter.swift; sourceTree = "<group>"; };
+		39C732A8276E46710056ACF1 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		39C732A9276E46710056ACF1 /* PlayerModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerModule.swift; sourceTree = "<group>"; };
+		39C732AA276E46710056ACF1 /* PlayerInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInteractor.swift; sourceTree = "<group>"; };
 		39E0086F2769B8080089CC25 /* EpisodeContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeContentController.swift; sourceTree = "<group>"; };
 		39E008712769B8180089CC25 /* EpisodeContent+Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeContent+Post.swift"; sourceTree = "<group>"; };
 		39E008732769BB950089CC25 /* EpisodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeContent.swift; sourceTree = "<group>"; };
@@ -242,6 +254,7 @@
 		390ACD852744E1E500E83B09 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				39C732A5276E46710056ACF1 /* Player */,
 				39AA02BB276B8E6C0070D876 /* ContentDescription */,
 				39000146276B20E00094116C /* EpisodeContentListing */,
 				390ED707276767D500F12180 /* ContentDetail */,
@@ -275,6 +288,7 @@
 				398CD54E2765083D0068CFF6 /* ContentListingType.swift */,
 				3940C11D2768C9F300162EDC /* CategorizedContent.swift */,
 				39E008752769C0E00089CC25 /* ContentType.swift */,
+				39C732A3276E43D90056ACF1 /* YoteShinPlayer.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -496,6 +510,18 @@
 			path = PlaylistContent;
 			sourceTree = "<group>";
 		};
+		39C732A5276E46710056ACF1 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				39C732A6276E46710056ACF1 /* PlayerRouter.swift */,
+				39C732A7276E46710056ACF1 /* PlayerPresenter.swift */,
+				39C732A8276E46710056ACF1 /* PlayerView.swift */,
+				39C732A9276E46710056ACF1 /* PlayerModule.swift */,
+				39C732AA276E46710056ACF1 /* PlayerInteractor.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		39E0086E2769B7F50089CC25 /* EpisodeContent */ = {
 			isa = PBXGroup;
 			children = (
@@ -617,6 +643,7 @@
 				3900014D276B20E00094116C /* EpisodeContentListingView.swift in Sources */,
 				39AA02C3276B8E6D0070D876 /* ContentDescriptionModule.swift in Sources */,
 				399A78C027634D640067A54B /* MovieContentController.swift in Sources */,
+				39C732AE276E46710056ACF1 /* PlayerModule.swift in Sources */,
 				39E008742769BB950089CC25 /* EpisodeContent.swift in Sources */,
 				398460322763C21A008D5692 /* ContentListingInteractor.swift in Sources */,
 				39AA02C1276B8E6D0070D876 /* ContentDescriptionInteractor.swift in Sources */,
@@ -628,11 +655,14 @@
 				39229B8E276471EB00E83D75 /* CategorizedContentListingModule.swift in Sources */,
 				390ACDA32744F15A00E83B09 /* Category+Post.swift in Sources */,
 				390ACD792744DDE500E83B09 /* YoteShin.xcdatamodeld in Sources */,
+				39C732AD276E46710056ACF1 /* PlayerView.swift in Sources */,
 				39AA02C5276B8E6D0070D876 /* ContentDescriptionPresenter.swift in Sources */,
 				398460422763D988008D5692 /* CategoryListingInteractor.swift in Sources */,
+				39C732AB276E46710056ACF1 /* PlayerRouter.swift in Sources */,
 				3984603F2763D988008D5692 /* CategoryListingView.swift in Sources */,
 				390ACD932744E22E00E83B09 /* Interfaces.swift in Sources */,
 				39E008702769B8080089CC25 /* EpisodeContentController.swift in Sources */,
+				39C732AF276E46710056ACF1 /* PlayerInteractor.swift in Sources */,
 				390ED70D276767D500F12180 /* ContentDetailPresenter.swift in Sources */,
 				390ACD992744E74900E83B09 /* API.swift in Sources */,
 				390ACD6F2744DDE500E83B09 /* AppDelegate.swift in Sources */,
@@ -662,8 +692,10 @@
 				39229B942764966400E83D75 /* ViewEmbedder.swift in Sources */,
 				3940C11C276886EF00162EDC /* RelatedContent+Post.swift in Sources */,
 				3900014E276B20E00094116C /* EpisodeContentListingModule.swift in Sources */,
+				39C732A4276E43D90056ACF1 /* YoteShinPlayer.swift in Sources */,
 				390ED711276767D500F12180 /* ContentDetailView.swift in Sources */,
 				390ACD8E2744E1E500E83B09 /* MainRouter.swift in Sources */,
+				39C732AC276E46710056ACF1 /* PlayerPresenter.swift in Sources */,
 				39610CBC2761FBB9005754CF /* NoSwipeSegmentedControl.swift in Sources */,
 				398460352763C21A008D5692 /* ContentListingView.swift in Sources */,
 				398460402763D988008D5692 /* CategoryListingModule.swift in Sources */,
