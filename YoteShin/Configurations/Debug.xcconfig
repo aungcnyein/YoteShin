@@ -8,4 +8,6 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
+#include "Pods/Target Support Files/Pods-YoteShin/Pods-YoteShin.debug.xcconfig"
+
 BASEURL = https:$()script.google.com/macros/s/AKfycbxU9eeTXB6VbCACrPN-kTXdFuo4RyY2zomqFMt9IsFOVDi_HUuiErZeAYuRvjDWCQ14Ag

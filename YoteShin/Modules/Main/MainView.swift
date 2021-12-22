@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import BTNavigationDropdownMenu
 
 final class MainView: UIViewController, ViewInterface {
     
@@ -16,19 +17,13 @@ final class MainView: UIViewController, ViewInterface {
     
     var presenter: MainPresenterViewInterface!
     static let identifier = "MainView"
-    private var segmentedControl: UISegmentedControl!
-    private var segmentedItems: [String] = []
     private var loadingView = UIView()
+    private var dropDownItems: [String] = []
     
     private var category: [CategoryController.Categories] = [] {
         didSet {
             navigationController?.navigationBar.isUserInteractionEnabled = true
-            
-            for index in 0...3 {
-                self.segmentedItems.append(category[index].title)
-            }
-
-            setupSegmentedControl()
+            setupNavigationDropDownMenu()
         }
     }
 
@@ -46,43 +41,43 @@ final class MainView: UIViewController, ViewInterface {
     
     // MARK: Objc Methods
     
-    @objc private func didTapSegmentedControl(sender: UISegmentedControl) {
-        NotificationCenter.default.post(name: Notification.Name(Notification.Noti.didTapSegmentedControl), object: category[sender.selectedSegmentIndex])
-    }
-    
     @objc private func didTapWatchLaterButton() {
         presenter.pushToWatchLaterView()
-    }
-    
-    @objc private func didTapCategoriesButton() {
-        presenter.pushToCategoryListingView(category: category)
     }
     
     // MARK: Custom Methods
     
     private func configureUI() {
-        self.title = "Home"
         navigationController?.navigationBar.tintColor = .red
         navigationController?.navigationBar.isUserInteractionEnabled = false
         loadingView = showLoadingView(at: self.view)
     }
     
-    private func setupSegmentedControl() {
-        segmentedControl = UISegmentedControl(items: segmentedItems)
-        segmentedControl.selectedSegmentIndex = 0
-        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        // segmentedControl.apportionsSegmentWidthsByContent = true
-        segmentedControl.addTarget(self, action: #selector(didTapSegmentedControl(sender:)), for: .valueChanged)
+    private func setupNavigationDropDownMenu() {
+        for index in 0..<category.count {
+            self.dropDownItems.append(category[index].title)
+        }
         
-        self.view.addSubview(segmentedControl)
+        let menuView = BTNavigationDropdownMenu(navigationController: self.navigationController, containerView: self.navigationController!.view, title: BTTitle.index(0), items: dropDownItems)
         
-        NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            segmentedControl.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 35),
+        menuView.cellBackgroundColor = .systemBackground
+        menuView.cellSeparatorColor = .systemBackground
+        menuView.cellSelectionColor = .secondarySystemBackground
+        menuView.arrowTintColor = .systemRed
+        menuView.menuTitleColor = .systemRed
+        menuView.maskBackgroundOpacity = 0.7
+        
+        self.navigationItem.titleView = menuView
+        
+        menuView.didSelectItemAtIndexHandler = {(indexPath: Int) -> () in
+            if self.category[indexPath].type == ContentListingType.list.description {
+                self.presenter.embedCategorizedContentListingView(at: self.containerView, with: self.category[indexPath])
+            }
             
-            containerView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16)
-        ])
+            if self.category[indexPath].type == ContentListingType.grid.description {
+                self.presenter.embedContentListingView(at: self.containerView, with: self.category[indexPath])
+            }
+        }
     }
     
     private func setupNavigationBarItem() {
@@ -90,21 +85,11 @@ final class MainView: UIViewController, ViewInterface {
         watchLaterButton.setImage(UIImage(named: "ic_watchlater"), for: .normal)
         watchLaterButton.addTarget(self, action: #selector(didTapWatchLaterButton), for: .touchUpInside)
         
-        let categoriesButton = UIButton(type: .custom)
-        categoriesButton.setImage(UIImage(named: "ic_categories"), for: .normal)
-        categoriesButton.addTarget(self, action: #selector(didTapCategoriesButton), for: .touchUpInside)
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: categoriesButton),
-            UIBarButtonItem(customView: watchLaterButton)
-        ]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: watchLaterButton)
         
         NSLayoutConstraint.activate([
             watchLaterButton.widthAnchor.constraint(equalToConstant: 26),
-            watchLaterButton.heightAnchor.constraint(equalToConstant: 26),
-            
-            categoriesButton.widthAnchor.constraint(equalToConstant: 26),
-            categoriesButton.heightAnchor.constraint(equalToConstant: 26)
+            watchLaterButton.heightAnchor.constraint(equalToConstant: 26)
         ])
     }
     
@@ -131,7 +116,7 @@ extension MainView: MainViewPresenterInterface {
         hideLoadingView(at: loadingView)
         self.category = category
         
-        presenter.embedCategorizedContentListingView(at: containerView, with: category[segmentedControl.selectedSegmentIndex])
+        presenter.embedCategorizedContentListingView(at: containerView, with: category[0])
     }
     
     func onFetchingDataFailed(title: String, message: String) {

@@ -43,7 +43,7 @@ final class CategorizedContentListingView: UIViewController, ViewInterface {
     
     // MARK: Objc Methods
     
-    @objc private func didTapSegmentedControl(notification: Notification) {
+    @objc private func didSelectDropDownItem(notification: Notification) {
         self.category = notification.object as? CategoryController.Categories
         self.content = []
         self.loadingView = self.showLoadingView(at: self.parentView ?? self.view)
@@ -63,7 +63,7 @@ final class CategorizedContentListingView: UIViewController, ViewInterface {
     }
     
     private func setupNotificationCenter() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didTapSegmentedControl(notification:)), name: Notification.Name(Notification.Noti.didTapSegmentedControl), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectDropDownItem(notification:)), name: Notification.Name(Notification.Noti.didSelectDropDownItem), object: nil)
     }
     
     private func showAlert(title: String, message: String) {

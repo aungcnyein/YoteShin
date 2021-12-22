@@ -95,6 +95,7 @@
 		39E008742769BB950089CC25 /* EpisodeContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008732769BB950089CC25 /* EpisodeContent.swift */; };
 		39E008762769C0E00089CC25 /* ContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E008752769C0E00089CC25 /* ContentType.swift */; };
 		39EDE4662765DBFC00A99EF8 /* CollectionFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39EDE4652765DBFC00A99EF8 /* CollectionFooterReusableView.swift */; };
+		BDA97F6E9B7043BFE1390BF6 /* Pods_YoteShin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C79D4935A8FBE71B43B7A3 /* Pods_YoteShin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -188,6 +189,9 @@
 		39E008732769BB950089CC25 /* EpisodeContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeContent.swift; sourceTree = "<group>"; };
 		39E008752769C0E00089CC25 /* ContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentType.swift; sourceTree = "<group>"; };
 		39EDE4652765DBFC00A99EF8 /* CollectionFooterReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionFooterReusableView.swift; sourceTree = "<group>"; };
+		684945EF3F3CDF368E279C8B /* Pods-YoteShin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoteShin.debug.xcconfig"; path = "Target Support Files/Pods-YoteShin/Pods-YoteShin.debug.xcconfig"; sourceTree = "<group>"; };
+		80C79D4935A8FBE71B43B7A3 /* Pods_YoteShin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YoteShin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADB615B9132706EC8FE5C8AE /* Pods-YoteShin.production.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoteShin.production.xcconfig"; path = "Target Support Files/Pods-YoteShin/Pods-YoteShin.production.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,12 +201,22 @@
 			files = (
 				398460142763B6BE008D5692 /* SDWebImage in Frameworks */,
 				390ACD962744E3EB00E83B09 /* CodyFire in Frameworks */,
+				BDA97F6E9B7043BFE1390BF6 /* Pods_YoteShin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E95D844F12683ADDAAFF55A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				684945EF3F3CDF368E279C8B /* Pods-YoteShin.debug.xcconfig */,
+				ADB615B9132706EC8FE5C8AE /* Pods-YoteShin.production.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		39000146276B20E00094116C /* EpisodeContentListing */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +234,8 @@
 			children = (
 				390ACD6D2744DDE500E83B09 /* YoteShin */,
 				390ACD6C2744DDE500E83B09 /* Products */,
+				0E95D844F12683ADDAAFF55A /* Pods */,
+				C4F3F3C867CEF798384719E0 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -539,6 +555,14 @@
 			path = CollectionHeaderFooterView;
 			sourceTree = "<group>";
 		};
+		C4F3F3C867CEF798384719E0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				80C79D4935A8FBE71B43B7A3 /* Pods_YoteShin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -546,9 +570,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 390ACD822744DDE800E83B09 /* Build configuration list for PBXNativeTarget "YoteShin" */;
 			buildPhases = (
+				34A30DBCB28D9282949E1E72 /* [CP] Check Pods Manifest.lock */,
 				390ACD672744DDE500E83B09 /* Sources */,
 				390ACD682744DDE500E83B09 /* Frameworks */,
 				390ACD692744DDE500E83B09 /* Resources */,
+				35C017B37CB29D49FCAE8DFB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -615,6 +641,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34A30DBCB28D9282949E1E72 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-YoteShin-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35C017B37CB29D49FCAE8DFB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YoteShin/Pods-YoteShin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-YoteShin/Pods-YoteShin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-YoteShin/Pods-YoteShin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		390ACD672744DDE500E83B09 /* Sources */ = {

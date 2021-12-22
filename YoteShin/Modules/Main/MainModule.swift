@@ -11,8 +11,8 @@ import UIKit
 
 protocol MainRouterPresenterInterface: RouterPresenterInterface {
     func addCategorizedContentListingView(at containerView: UIView, with category: CategoryController.Categories)
+    func addContentListingView(at containerView: UIView, with category: CategoryController.Categories)
     func goToWatchLaterView()
-    func goToCategoryListingView(category: [CategoryController.Categories])
 }
 
 // MARK: - presenter
@@ -29,8 +29,8 @@ protocol MainPresenterInteractorInterface: PresenterInteractorInterface {
 protocol MainPresenterViewInterface: PresenterViewInterface {
     func getCategory()
     func embedCategorizedContentListingView(at containerView: UIView, with category: CategoryController.Categories)
+    func embedContentListingView(at containerView: UIView, with category: CategoryController.Categories)
     func pushToWatchLaterView()
-    func pushToCategoryListingView(category: [CategoryController.Categories])
 }
 
 // MARK: - interactor

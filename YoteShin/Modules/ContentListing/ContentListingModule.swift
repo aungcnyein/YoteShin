@@ -55,7 +55,7 @@ final class ContentListingModule: ModuleInterface {
     typealias Router = ContentListingRouter
     typealias Interactor = ContentListingInteractor
 
-    func build(categorizedContent: CategorizedContent, type: ContentListingType) -> UIViewController {
+    func build(categorizedContent: CategorizedContent, type: ContentListingType, parentView: UIView? = nil) -> UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let view = storyboard.instantiateViewController(withIdentifier: View.identifier) as! View
         let interactor = Interactor()
@@ -67,6 +67,7 @@ final class ContentListingModule: ModuleInterface {
         router.viewController = view
         
         view.categorizedContent = categorizedContent
+        view.parentView = parentView
         view.type = type
 
         return view

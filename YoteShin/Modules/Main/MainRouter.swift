@@ -24,14 +24,19 @@ extension MainRouter: MainRouterPresenterInterface {
             containerView: containerView
         )
     }
+    
+    func addContentListingView(at containerView: UIView, with category: CategoryController.Categories) {
+        let categorizedContent = CategorizedContent(category: category)
+        
+        ViewEmbedder.addChild(
+            childController: ContentListingModule().build(categorizedContent: categorizedContent, type: .grid, parentView: viewController?.view),
+            parentController: viewController!,
+            containerView: containerView
+        )
+    }
 
     func goToWatchLaterView() {
         let view = WatchLaterModule().build()
-        viewController?.navigationController?.pushViewController(view, animated: true)
-    }
-    
-    func goToCategoryListingView(category: [CategoryController.Categories]) {
-        let view = CategoryListingModule().build(category: category)
         viewController?.navigationController?.pushViewController(view, animated: true)
     }
     

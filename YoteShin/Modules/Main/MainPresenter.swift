@@ -42,12 +42,12 @@ extension MainPresenter: MainPresenterViewInterface {
         router.addCategorizedContentListingView(at: containerView, with: category)
     }
     
-    func pushToWatchLaterView() {
-        router.goToWatchLaterView()
+    func embedContentListingView(at containerView: UIView, with category: CategoryController.Categories) {
+        router.addContentListingView(at: containerView, with: category)
     }
     
-    func pushToCategoryListingView(category: [CategoryController.Categories]) {
-        router.goToCategoryListingView(category: category)
+    func pushToWatchLaterView() {
+        router.goToWatchLaterView()
     }
     
 }

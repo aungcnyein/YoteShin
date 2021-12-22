@@ -19,6 +19,7 @@ final class ContentListingView: UIViewController, ViewInterface {
     var category: CategoryController.Categories! // use to fetch grid content
     var movieContent: MovieContentController.MovieContents! // use to fetch list content
     var content: Content! // use to fetch content detail
+    var parentView: UIView?
     static let identifier = "ContentListingView"
     private var loadingView = UIView()
     private var isLoadingMoreData: Bool = false
@@ -97,7 +98,7 @@ final class ContentListingView: UIViewController, ViewInterface {
             handler: { _ in
                 if (self.type == .grid) {
                     if self.currentPage == 1 {
-                        self.loadingView = self.showLoadingView(at: self.view)
+                        self.loadingView = self.showLoadingView(at: self.parentView ?? self.view)
                     }
                     
                     self.presenter.getGridContentBy(categoryKey: self.category.key, page: self.currentPage)
@@ -105,7 +106,7 @@ final class ContentListingView: UIViewController, ViewInterface {
                 
                 if (self.type == .contentDetail) {
                     DispatchQueue.main.async {
-                        self.loadingView = self.showLoadingView(at: self.view)
+                        self.loadingView = self.showLoadingView(at: self.parentView ?? self.view)
                     }
                     
                     self.presenter.getRelatedContentBy(contentID: self.content.movieID)
@@ -133,7 +134,7 @@ final class ContentListingView: UIViewController, ViewInterface {
         case .grid:
             self.category = categorizedContent.category
             self.title = category.title
-            loadingView = showLoadingView(at: self.view)
+            loadingView = showLoadingView(at: self.parentView ?? self.view)
             presenter.getGridContentBy(categoryKey: category.key, page: currentPage)
             break
             
@@ -141,7 +142,7 @@ final class ContentListingView: UIViewController, ViewInterface {
             self.content = categorizedContent.content
             
             DispatchQueue.main.async {
-                self.loadingView = self.showLoadingView(at: self.view)
+                self.loadingView = self.showLoadingView(at: self.parentView ?? self.view)
             }
             
             presenter.getRelatedContentBy(contentID: content.movieID)

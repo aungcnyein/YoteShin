@@ -10,7 +10,7 @@ import Foundation
 extension Notification {
     
     enum Noti {
-        static let didTapSegmentedControl: String = "didTapSegmentedControl"
+        static let didSelectDropDownItem: String = "didSelectDropDownItem"
         static let refreshEpisodeContent: String = "refreshEpisodeContent"
         static let episodeContentReady: String = "episodeContentReady"
     }
