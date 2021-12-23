@@ -27,7 +27,7 @@ extension EpisodeContentController {
     }
     
     static func get(_ request: EpisodeContentRequest) -> APIRequest<EpisodeContentResponse> {
-        return APIRequest("exec").payload(request).method(.post).responseTimeout(5)
+        return APIRequest("exec").payload(request).method(.post)
     }
     
 }

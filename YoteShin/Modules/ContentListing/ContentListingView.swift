@@ -271,30 +271,26 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var view = UIViewController()
-        
         switch type {
         case .list:
             let type = (movieContent.content[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            view = ContentDetailModule().build(content: movieContent.content[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: movieContent.content[indexPath.row], type: type)
             break
             
         case .grid:
             let type = (gridContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            view = ContentDetailModule().build(content: gridContent[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: gridContent[indexPath.row], type: type)
             break
             
         case .contentDetail:
             let type = (relatedContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            view = ContentDetailModule().build(content: relatedContent[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: relatedContent[indexPath.row], type: type)
             break
             
         case .none:
             fatalError()
             break
         }
-        
-        navigationController?.pushViewController(view, animated: true)
     }
     
 }

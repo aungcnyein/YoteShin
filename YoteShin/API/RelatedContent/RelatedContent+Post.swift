@@ -39,7 +39,7 @@ extension RelatedContentController {
     }
     
     static func get(_ request: RelatedContentRequest) -> APIRequest<RelatedContentResponse> {
-        return APIRequest("exec").payload(request).method(.post).responseTimeout(5)
+        return APIRequest("exec").payload(request).method(.post)
     }
     
 }

@@ -39,7 +39,7 @@ extension PlaylistContentController {
     }
     
     static func get(_ request: PlaylistRequest) -> APIRequest<PlaylistResponse> {
-        return APIRequest("exec").payload(request).method(.post).responseTimeout(5)
+        return APIRequest("exec").payload(request).method(.post)
     }
     
 }

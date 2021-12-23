@@ -27,7 +27,7 @@ extension GridContentController {
     }
     
     static func get(_ request: GridContentController.GridContentRequest) -> APIRequest<GridContentResponse> {
-        return APIRequest("exec").payload(request).method(.post).responseTimeout(5)
+        return APIRequest("exec").payload(request).method(.post)
     }
     
 }

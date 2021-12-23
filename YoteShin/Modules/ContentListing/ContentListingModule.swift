@@ -10,7 +10,7 @@ import UIKit
 // MARK: - router
 
 protocol ContentListingRouterPresenterInterface: RouterPresenterInterface {
-
+    func goToContentDetailView(content: Content, type: ContentType)
 }
 
 // MARK: - presenter
@@ -28,6 +28,7 @@ protocol ContentListingPresenterInteractorInterface: PresenterInteractorInterfac
 protocol ContentListingPresenterViewInterface: PresenterViewInterface {
     func getGridContentBy(categoryKey: String, page: Int)
     func getRelatedContentBy(contentID: String)
+    func pushToContentDetailView(content: Content, type: ContentType)
 }
 
 // MARK: - interactor

@@ -44,5 +44,9 @@ extension ContentListingPresenter: ContentListingPresenterViewInterface {
     func getRelatedContentBy(contentID: String) {
         interactor.fetchRelatedContentBy(contentID: contentID)
     }
+    
+    func pushToContentDetailView(content: Content, type: ContentType) {
+        router.goToContentDetailView(content: content, type: type)
+    }
 
 }

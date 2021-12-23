@@ -40,7 +40,7 @@ extension MovieContentController {
     }
     
     static func get(_ request: MovieContentRequest) -> APIRequest<MovieContentResponse> {
-        return APIRequest("exec").payload(request).method(.post).responseTimeout(5)
+        return APIRequest("exec").payload(request).method(.post)
     }
     
 }

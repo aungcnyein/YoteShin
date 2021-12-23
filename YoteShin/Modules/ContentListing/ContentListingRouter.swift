@@ -17,4 +17,9 @@ final class ContentListingRouter: RouterInterface {
 
 extension ContentListingRouter: ContentListingRouterPresenterInterface {
 
+    func goToContentDetailView(content: Content, type: ContentType) {
+        let view = ContentDetailModule().build(content: content, type: type)
+        viewController?.present(view, animated: true, completion: nil)
+    }
+    
 }

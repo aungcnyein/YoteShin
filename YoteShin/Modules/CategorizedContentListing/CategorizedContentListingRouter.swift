@@ -26,7 +26,7 @@ extension CategorizedContentListingRouter: CategorizedContentListingRouterPresen
     func goToContentDetailView(content: Content) {
         let type = (content.movieURL == "") ? ContentType.episode : ContentType.movie
         let view = ContentDetailModule().build(content: content, type: type)
-        viewController?.navigationController?.pushViewController(view, animated: true)
+        viewController?.present(view, animated: true, completion: nil)
     }
     
 }
