@@ -63,8 +63,8 @@ final class MainView: UIViewController, ViewInterface {
         menuView.cellBackgroundColor = .systemBackground
         menuView.cellSeparatorColor = .systemBackground
         menuView.cellSelectionColor = .secondarySystemBackground
-        menuView.arrowTintColor = .systemRed
-        menuView.menuTitleColor = .systemRed
+        menuView.arrowTintColor = .red
+        menuView.menuTitleColor = .red
         menuView.maskBackgroundOpacity = 0.7
         
         self.navigationItem.titleView = menuView

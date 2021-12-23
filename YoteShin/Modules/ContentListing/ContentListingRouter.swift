@@ -17,9 +17,14 @@ final class ContentListingRouter: RouterInterface {
 
 extension ContentListingRouter: ContentListingRouterPresenterInterface {
 
-    func goToContentDetailView(content: Content, type: ContentType) {
+    func goToContentDetailView(content: Content, type: ContentType, shouldEmbedNavigation: Bool) {
         let view = ContentDetailModule().build(content: content, type: type)
-        viewController?.present(view, animated: true, completion: nil)
+        
+        if shouldEmbedNavigation {
+            viewController?.present(UINavigationController(rootViewController: view), animated: true, completion: nil)
+        } else {
+            viewController?.navigationController?.pushViewController(view, animated: true)
+        }
     }
     
 }

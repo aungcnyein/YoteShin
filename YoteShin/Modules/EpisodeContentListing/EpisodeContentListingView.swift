@@ -111,14 +111,14 @@ final class EpisodeContentListingView: UIViewController, ViewInterface {
 extension EpisodeContentListingView: EpisodeContentListingViewPresenterInterface {
 
     func onFetchingEpisodeContentSuccess(episodeContent: [EpisodeContent]) {
-        NotificationCenter.default.post(name: Notification.Name(Notification.Noti.episodeContentReady), object: episodeContent[0])
-        
         hideLoadingView(at: loadingView)
         self.episodeContent.append(contentsOf: episodeContent)
         self.isLoadingMoreData = false
         
         if episodeContent.isEmpty {
             isLastPage = true
+        } else {
+            NotificationCenter.default.post(name: Notification.Name(Notification.Noti.episodeContentReady), object: episodeContent[0])
         }
     }
     

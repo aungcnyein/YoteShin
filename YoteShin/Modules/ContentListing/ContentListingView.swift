@@ -50,6 +50,7 @@ final class ContentListingView: UIViewController, ViewInterface {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureUI()
         registerReusableCollectionCell()
         registerReusableCollectionView()
     }
@@ -72,6 +73,10 @@ final class ContentListingView: UIViewController, ViewInterface {
     }
     
     // MARK: Custom Methods
+    
+    private func configureUI() {
+        navigationController?.navigationBar.tintColor = .red
+    }
     
     private func registerReusableCollectionCell() {
         collectionView.register(UINib(nibName: MovieCell.identifier, bundle: nil), forCellWithReuseIdentifier: MovieCell.identifier)
@@ -274,17 +279,17 @@ extension ContentListingView: UICollectionViewDataSource, UICollectionViewDelega
         switch type {
         case .list:
             let type = (movieContent.content[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            presenter.pushToContentDetailView(content: movieContent.content[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: movieContent.content[indexPath.row], type: type, shouldEmbedNavigation: true)
             break
             
         case .grid:
             let type = (gridContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            presenter.pushToContentDetailView(content: gridContent[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: gridContent[indexPath.row], type: type, shouldEmbedNavigation: true)
             break
             
         case .contentDetail:
             let type = (relatedContent[indexPath.row].movieURL == "") ? ContentType.episode : ContentType.movie
-            presenter.pushToContentDetailView(content: relatedContent[indexPath.row], type: type)
+            presenter.pushToContentDetailView(content: relatedContent[indexPath.row], type: type, shouldEmbedNavigation: false)
             break
             
         case .none:

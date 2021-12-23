@@ -38,6 +38,7 @@ final class ContentDetailView: UIViewController, ViewInterface {
         super.viewDidLoad()
         
         configureUI()
+        setupNavigationBarItem()
         assignContentForMovie()
         registerNotificationCenter()
         configureSegmentedControl(type: self.type)
@@ -122,6 +123,10 @@ final class ContentDetailView: UIViewController, ViewInterface {
         self.episodeContent = notification.object as? EpisodeContent
     }
     
+    @objc private func didTapClose() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: Custom Methods
     
     private func configureUI() {
@@ -135,6 +140,11 @@ final class ContentDetailView: UIViewController, ViewInterface {
                 self.configureButton(shouldEnable: false)
             }
         }
+    }
+    
+    private func setupNavigationBarItem() {
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(didTapClose))
+        navigationItem.rightBarButtonItem = closeButton
     }
     
     private func configureButton(shouldEnable: Bool) {
